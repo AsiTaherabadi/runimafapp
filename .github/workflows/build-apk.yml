@@ -1,0 +1,26 @@
+name: Build APK from Web Files
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build APK with WebToApp
+        uses: darkshredder/web-to-app-action@v1
+        with:
+          app-name: "MyApp"
+          package-name: "com.example.myapp"
+          web-dir: "./" 
+          version-code: 1
+          version-name: "1.0"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-app-apk
+          path: "*.apk"
